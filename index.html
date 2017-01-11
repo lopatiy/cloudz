@@ -1,75 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Perspective</title>
-	<style type="text/css">
-		div, body {
-			padding: 0;
-			margin: 0;
-		}
-
-		body {
-			margin: auto;
-			width: 100vh;
-			height: 100vh;
-		}
-
-		.container {
-			transform-style: preserve-3d;
-			perspective: 3000px;
-			width: 100%;
-			height: 100%;
-		}
-
-		.guideline{
-			position: absolute;
-			height: 3000px;
-			border: 1px solid black;
-			transform: rotateX(-90deg);
-		}
-
-		.gtl{
-    		transform-origin: top;
-		}
-
-		.gtr{
-    		transform-origin: top;
-    		right: 0;
-		}
-
-		.gbl{
-		    top: 100%;
-		    transform-origin: top;
-		}
-
-		.gbr{
-    		top: 100%;
-    		right: 0;
-    		transform-origin: top;
-		}
-
-		.step {
-			background: url('cloud.png') no-repeat 0 0;
-			background-size: contain;
-			position: absolute;
-			top: 50%;
-			left: calc(50% - 75px);
-			width: 150px;
-			height: 100px;
-			margin: auto;
-			transform-origin: center center;
-		}
-	</style>
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+	<title>Cloudz</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js"></script>
 </head>
 <body>
-	<div class="container">
-		<div class="guideline gtl"></div>
-		<div class="guideline gtr"></div>
-		<div class="guideline gbl"></div>
-		<div class="guideline gbr"></div>
-	</div>
+	<div class="container"></div>
+	<div class="settings"></div>
 </body>
 <script type="text/javascript">
 	function style(obj){
@@ -77,48 +16,7 @@
 			return acc + k + ':' + v + ';';
 		}, '')
 	}
-
-	var vars = {
-		distance : 1000,
-		delta : 100,
-		fps : 3,
-		guidelines : true
-	}	
-
-	var dist = 1000;
-	var delta = 100;
-	var fps = 10;
-
-	$(document).ready(function(){
-		setInterval(function(){
-			update()
-		}, 1000/fps)
-	})
-
-	function renderGuidlines(){
-		if(vars.guidelines){
-			$('.container').append('<div class="guideline gtl"></div><div class="guideline gtr"></div><div class="guideline gbl"></div><div class="guideline gbr"></div>');
-		}
-	}
-
-	function renderClouds(){
-		for(var i= 0; i<6; i+=1){
-
-			var odd = !(i % 2);
-			var styleStr = style({
-				transform :  'translate3d('+(odd? '+' : '-') + (vars.delta+Math.floor(Math.random()*100)) +'px,0,-'+ i * vars.distance +'px);',
-				filter : 'blur('+i+'px);'
-			})
-
-			$('.container').append('<div class="step" style="'+ styleStr+'"></div>')
-		}
-	}
-
-	function update(){
-		$('.container').html('');
-
-		renderGuidlines();
-		renderClouds();		
-	}
 </script>
+<script type="text/javascript" src="Cloud.js"></script>
+<script type="text/javascript" src="app.js"></script>
 </html>
